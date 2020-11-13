@@ -45,12 +45,15 @@ const ProductSchema = new Schema({
 
 
 ProductSchema.virtual('averageRating').get(function () {
+    // console.log('review Length\n', this.reviews.length);
     if (this.reviews.length > 0) {
         let sum = this.reviews.reduce((total, review) => {
+            // console.log('addition\t', (total + review.rating));
             return total + review.rating
         }, 0)
 
-        return sum / this.reviews.length
+        // console.log('Sum of all:\t', sum);
+        return Math.floor(sum / this.reviews.length)
     }
 
     return 0

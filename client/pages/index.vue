@@ -7,7 +7,7 @@
 
       <!-- Main Contents -->
       <div class="col-xl-10 col-lg-9 md-8 col-sm-8 mx-auto">
-        <FeaturedProduct></FeaturedProduct>
+        <FeaturedProduct :products="products"></FeaturedProduct>
 
         <div class="mainResults">
           <ul class="s-result-list">
@@ -34,7 +34,7 @@
                     <div class="col-sm-9">
                       <!-- Title and Date -->
                       <div class="a-row a-spacing-small">
-                        <nuxt-link :to="`/products/${product._id}`" class="a-link-normal">
+                        <nuxt-link  :to="`/products/${product._id}`" class="a-link-normal">
                           <h2 class="a-size-medium">
                             {{ product.title }}
                             <span class="a-letter-space"></span>
@@ -48,9 +48,9 @@
                       <div class="a-row a-spacing-small">
                         <span class="a-size-small a-color-secondary">by</span>
                         <span class="a-size-small a-color-secondary">
-                          <a href="#" class="a-link-normal a-text-normal">
+                          <p class="a-link-normal a-text-normal">
                             {{ product.owner.name }}
-                          </a>
+                          </p>
                         </span>
                       </div>
 
@@ -145,12 +145,37 @@ export default {
 
   async asyncData ({ $axios }) {
     try {
-      let response = await $axios.$get('/api/products')
+      let response = await $axios.$get(`${process.env.DEV_BACKEND}/api/products`)
+      response.products.forEach(product => {
+        console.log(`${product.title}:\t`, product.averageRating);
+      })
       return {
         products: response.products,
       }
     } catch (error) {
-      
+      console.log(error);
+    }
+  },
+
+  data () {
+    return {
+      products: {
+        product: {
+          _id: 0,
+          title: '',
+          description: '',
+          photo: '',
+          price: 0,
+          stockQuantity: 0,
+          category: {
+            type: ''
+          },
+          owner: {
+            name: ''
+          },
+          averageRating: 0
+        }
+      }
     }
   },
 

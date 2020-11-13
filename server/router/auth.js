@@ -1,6 +1,7 @@
 const express = require('express')
 const _ = require('lodash')
 const User = require('../models/user')
+const PreUser = require('../models/preUser')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 const authenticate = require('../middleware/authenticate')
@@ -24,16 +25,19 @@ router.post('/signup', async (req, res) => {
     } else {
         try {
             let body = _.pick(req.body, ['userName', 'email', 'password'])
-            let newUser = new User(body)
+            let newUser = new PreUser(body)
+            await newUser.save()
+            // console.log('signUp\n', newUser);
             let token = await jwt.sign(newUser.toJSON(), process.env.SECRETE, {
                 expiresIn: 604800 // 1 week
             })
 
-            const url = `http://localhost:9000/verify/${token}`
+            // const url = `http://localhost:9000/verify/confirm?Authorization=${token}`
+            const url = `https://ecommercestore2019.netlify.app/verify/confirm?Authorization=${token}`
             const mailOptions = {
                 from: '<no-reply> ecommercestore@gmail.com',
                 to: newUser.email,
-                subject: "Welcome to NoteBook Shop",
+                subject: "Welcome to Ecommerce Store",
                 text: `${newUser.uerName}'s Confirmation is required`,
                 html: `<h3>Please click <a href="${url}">HERE</a> for confirmation!!!</h3>`
             };
@@ -48,7 +52,8 @@ router.post('/signup', async (req, res) => {
 
             res.status(200).json({
                 success: true,
-                message: `Successfully created the new user ${newUser.userName}`
+                message: `Successfully created the new user ${newUser.userName}`,
+                token: token
             })
         } catch (error) {
             res.status(500).json({
@@ -63,10 +68,35 @@ router.post('/signup', async (req, res) => {
 router.get('/user', authenticate, async (req, res) => {
     try {
         let foundUser = await User.findOne({ _id: req.decoded._id }).populate('address')
+        let sendUser = foundUser
+        sendUser.password = 'cannot be shown'
         if (foundUser) {
             res.status(200).json({
                 success: true,
-                user: foundUser
+                user: sendUser
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
+// finding whether email is available or not
+router.post('/email', async (req, res) => {
+    try {
+        let foundUser = await User.findOne({ email: req.body.email })
+        if (!foundUser) {
+            res.status(200).json({
+                success: true,
+                message: 'This Email is available'
+            })
+        } else {
+            res.status(200).json({
+                success: false,
+                message: 'This Email is already taken. Try another one!!!'
             })
         }
     } catch (error) {
@@ -80,9 +110,13 @@ router.get('/user', authenticate, async (req, res) => {
 router.post('/confirmation/:token', async (req, res) => {
     try {
         const x = await jwt.verify(req.params.token, process.env.SECRETE);
-        let body = _.pick(x, ['email', 'password', 'userName']);
+        let body = _.pick(x, ['email', 'password', 'userName', 'confirmation']);
+        // console.log('confirm\n', body);
+        body.confirmation = true
         let newUser = new User(body)
+        // console.log('confirm user\n', newUser);
         await newUser.save()
+        await PreUser.findOneAndDelete({ email: body.email })
         let token = await jwt.sign(newUser.toJSON(), process.env.SECRETE, {
             expiresIn: 604800 // 1 week
         })
@@ -104,7 +138,7 @@ router.post('/confirmation/:token', async (req, res) => {
 
 /* Log In Route */
 router.post('/login', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
         let foundUser = await User.findOne({ email: req.body.email })
         if (!foundUser) {

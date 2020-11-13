@@ -20,10 +20,10 @@
                     :star-points="[23,2,14,17,0,19,10,34,7,50,23,43,38,50,36,34,46,19,31,17]"></star-rating>
             </client-only>
             <span>
-              <a href="#">
+              <p>
                 {{ product.averageRating }}
-                <i class="a-icon a-icon-popover"></i>
-              </a>
+                <!-- <i class="a-icon a-icon-popover"></i> -->
+              </p>
             </span>
           </div>
           <!-- <div class="cr-widget-histogram">
@@ -154,7 +154,7 @@
             <!-- Link to another Review page -->
             <span class="a-button-base writeReviewButton cm-cr-button-wide">
               <span class="a-button-inner">
-                <nuxt-link :to="`/reviews/${product._id}`" class="a-button-text">Write a customer review</nuxt-link>
+                <nuxt-link :to="$store.getters.getLog ? `/reviews/${product._id}` : `/login`" class="a-button-text" role="button" style="margin-left: 10px !important; margin-right: 10px !important">Write a customer review</nuxt-link>
               </span>
             </span>
           </div>
@@ -174,9 +174,9 @@
                 :key="review._id"
                 :src="review.photo"/>
             </div>
-            <div>
+            <!-- <div>
               <a href="#">See all customer images</a>
-            </div>
+            </div> -->
           </div>
           
           <div class="cr-widget-focalreviews">
@@ -223,7 +223,7 @@
                   <!-- Review Headline -->
                   <a href="#" class="review-title">{{review.headline}}</a>
                 </div>
-                <span class="review-date">June 28, 2016</span>
+                <span class="review-date">June 28, 2020</span>
                 <div class="review-data">
                   <span class="a-color-secondary">Format: Hardcover</span>
                   <div
@@ -236,10 +236,10 @@
                   <span>{{review.body}}</span>
                 </div>
                 <div class="review-comments">
-                  <div class="a-spacing-small">
+                  <!-- <div class="a-spacing-small">
                     <span class="a-size-base a-color-tertiary">60 people found this helpful</span>
-                  </div>
-                  <div class="cr-helpful-button">
+                  </div> -->
+                  <!-- <div class="cr-helpful-button">
                     <span class="a-button-base">
                       <span class="a-button-inner">
                         <a href="#" class="a-button-text">
@@ -247,7 +247,7 @@
                         </a>
                       </span>
                     </span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <!-- Reviews -->
@@ -257,7 +257,7 @@
             <div class="a-row">
               <span class="a-button a-button-base writeReviewButton" id="a-autoid-15">
                 <span class="a-button-inner">
-                  <nuxt-link :to="`/reviews/${product._id}`" class="a-button-text" role="button" style="margin-left: 10px !important; margin-right: 10px !important">Write a customer review</nuxt-link>
+                  <nuxt-link :to="$store.getters.getLog ? `/reviews/${product._id}` : `/login`" class="a-button-text" role="button" style="margin-left: 10px !important; margin-right: 10px !important">Write a customer review</nuxt-link>
                 </span>
               </span>
             </div>
@@ -270,12 +270,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 const rating = process.client ? require('vue-rate-it') : {}
 export default {
   props: ['product', 'reviews'],
   components: {
     StarRating: rating.StarRating
   },
+  computed: {
+    ...mapGetters(['getLog'])
+  }
 };
 </script>
 

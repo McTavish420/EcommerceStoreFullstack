@@ -17,7 +17,7 @@
                                  class="a-input-text" 
                                  style="width: 100%"
                                  v-model="userName"
-                                 :placeholder="$auth.$state.user.userName">
+                                 :placeholder="$store.getters.getUserName">
                             </div>
 
                             <!-- Email Input -->
@@ -27,7 +27,7 @@
                                  class="a-input-text" 
                                  style="width: 100%"
                                  v-model="email"
-                                 :placeholder="$auth.$state.user.email">
+                                 :placeholder="$store.getters.getUser.email">
                             </div>
 
                             <!-- Password Input -->
@@ -62,7 +62,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+    middleware: 'auth',
     data () {
         return {
             userName: '',
@@ -73,6 +75,7 @@ export default {
 
 
     methods: {
+        ...mapGetters(['getUserName', 'getUser']),
         async onUpdateProfile () {
             let data = {
                 userName: this.userName,
@@ -81,13 +84,14 @@ export default {
             }
 
             try {
-                let response = await this.$axios.$put('/api/auth/user', data)
+                let response = await this.$axios.$put(`${process.env.DEV_BACKEND}/api/auth/user`, data)
                 if (response.success) {
                     this.userName = ''
                     this.email = ''
                     this.password = ''
 
                     await this.$auth.fetchUser()
+                    await this.$store.dispatch('setLoggedUser')
                 }
             } catch (error) {
                 console.log(error)

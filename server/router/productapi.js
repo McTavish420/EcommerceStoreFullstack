@@ -50,6 +50,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         let product = await Product.findOne({ _id: req.params.id }).populate('owner category').populate('reviews', 'rating').exec()
+        console.log('product with review\n', product);
         res.status(200).json({
             success: true,
             product: product

@@ -22,6 +22,16 @@
 
                 <div class="row px-2">
 
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 pl-2" >
+                        <div class="nav-global-location">
+                            <nuxt-link to="/" 
+                              class="nav-a nav-a-2 nav-single-row-link">
+                                <span class="nav-line-1"></span>
+                                <span class="nav-line-2">HomePage</span>
+                        </nuxt-link>
+                        </div>
+                    </div>
+
                     <!-- Delivery -->
                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 pl-2" >
                         <div class="nav-global-location">
@@ -39,7 +49,7 @@
                     </div>
 
                     <!-- Shopping -->
-                    <div class="col-xl-6 col-lg-5 col-md-4 col-sm-6 p-0">
+                    <div class="col-xl-5 col-lg-4 col-md-3 col-sm-5 p-0">
                         <div class="nav-fill">
                             <!-- <div class="nav-shop">
                                 <nuxt-link to="/history" class="nav-a nav-a-2 nav-single-row-link">
@@ -67,7 +77,7 @@
                         <div class="nav-tools">
                             <a href="#" id="icp-nav-floyout" 
                             class="nav-a nav-a-2 icp-link-style-2">
-                            <span class="icp-nav-link-inner">
+                            <!-- <span class="icp-nav-link-inner">
                                 <span class="nav-line-1">
                                     <span class="icp-nav-globe-img-2"></span>
                                     <span class="icp-nav-language">EN</span>
@@ -78,7 +88,7 @@
                                     <span class="nav-icon nav-arrow" 
                                       style="visibility: visible"></span>
                                 </span>
-                            </span>
+                            </span> -->
                             </a>
                             <span class="icp-nav-link-border"></span>
 

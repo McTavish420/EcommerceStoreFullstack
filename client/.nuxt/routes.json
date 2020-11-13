@@ -1,0 +1,98 @@
+[
+  {
+    "name": "address",
+    "path": "/address",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\address\\\\index.vue",
+    "chunkName": "pages/address/index"
+  },
+  {
+    "name": "cart",
+    "path": "/cart",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\cart.vue",
+    "chunkName": "pages/cart"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\login.vue",
+    "chunkName": "pages/login"
+  },
+  {
+    "name": "orders",
+    "path": "/orders",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\orders.vue",
+    "chunkName": "pages/orders"
+  },
+  {
+    "name": "payment",
+    "path": "/payment",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\payment.vue",
+    "chunkName": "pages/payment"
+  },
+  {
+    "name": "placeorder",
+    "path": "/placeorder",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\placeorder.vue",
+    "chunkName": "pages/placeorder"
+  },
+  {
+    "name": "profile",
+    "path": "/profile",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\profile.vue",
+    "chunkName": "pages/profile"
+  },
+  {
+    "name": "search",
+    "path": "/search",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\search.vue",
+    "chunkName": "pages/search"
+  },
+  {
+    "name": "signup",
+    "path": "/signup",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\signup.vue",
+    "chunkName": "pages/signup"
+  },
+  {
+    "name": "verify",
+    "path": "/verify",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\verify\\\\index.vue",
+    "chunkName": "pages/verify/index"
+  },
+  {
+    "name": "address-add",
+    "path": "/address/add",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\address\\\\add.vue",
+    "chunkName": "pages/address/add"
+  },
+  {
+    "name": "verify-confirm",
+    "path": "/verify/confirm",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\verify\\\\confirm.vue",
+    "chunkName": "pages/verify/confirm"
+  },
+  {
+    "name": "address-id",
+    "path": "/address/:id",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\address\\\\_id.vue",
+    "chunkName": "pages/address/_id"
+  },
+  {
+    "name": "products-item",
+    "path": "/products/:item?",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\products\\\\_item.vue",
+    "chunkName": "pages/products/_item"
+  },
+  {
+    "name": "reviews-review",
+    "path": "/reviews/:review?",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\reviews\\\\_review.vue",
+    "chunkName": "pages/reviews/_review"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "G:\\\\Deployment of Ecom\\\\EcommerceStore\\\\pages\\\\index.vue",
+    "chunkName": "pages/index"
+  }
+]

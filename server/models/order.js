@@ -25,6 +25,10 @@ const OrderSchema = new Schema({
 
     estimatedDelivery: {
         type: String
+    },
+
+    totalBill: {
+        type: Number
     }
 })
 

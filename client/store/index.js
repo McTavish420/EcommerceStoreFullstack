@@ -1,3 +1,4 @@
+
 // State
 export const state = () => ({
     // state
@@ -7,7 +8,10 @@ export const state = () => ({
     shippingEstimatedDelivery: '',
     userName: '',
     city: '',
-    logStatus: false
+    user: '',
+    logStatus: false,
+    product: '',
+    reviews: ''
 })
 
 // Actions
@@ -27,10 +31,12 @@ export const actions = {
     setLoggedUser ({ state, commit }) {
         let data = {
             name: '',
-            city: ''
+            city: '',
+            user: ''
         }
         if (state.auth.loggedIn) {
              data.name = state.auth.user.userName
+             data.user = state.auth.user
             if (state.auth.user.address === null || state.auth.user.address == undefined) {
                 data.city = 'Not Set Yet'
             } else {
@@ -43,6 +49,17 @@ export const actions = {
 
     clearUser ({state, commit}) {
         commit('remove')
+    },
+
+    async singleProduct({commit}, params) {
+        try {
+            let response = await this.$axios.$get(`${process.env.DEV_BACKEND}/api/products/${params}`)
+            // console.log('inside Store Product:\n', response.product);
+
+            commit('setProduct', response.product)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     
@@ -119,6 +136,11 @@ export const mutations = {
 
 
     setTheUser (state, data ) {
+        if (data.user === null) {
+            state.user = ''
+        } else {
+            state.user = data.user
+        }
         if (data.name === null) {
             state.userName = ''
         } else {
@@ -136,8 +158,19 @@ export const mutations = {
     remove (state) {
         state.userName = '',
         state.city = '',
+        state.user = ''
         state.logStatus = false
-    }
+    },
+    
+    setProduct (state, data) {
+        state.product = data
+        // console.log('inside store product:\n', state.product);
+    },
+
+    setReviews(state, data) {
+        state.reviews = data
+        // console.log('inside store reviews:\n', state.reviews);
+    },
 
 }
 
@@ -174,18 +207,27 @@ export const getters = {
     },
 
     getUserName (state) {
-        console.log('get name: ', state.userName);
         return state.userName
     },
 
     getCity (state) {
-        console.log('get city: ', state.city);
         return state.city
     },
 
+    getUser (state) {
+        return state.user
+    },
+
     getLog(state) {
-        console.log('get log: ', state.logStatus);
         return state.logStatus
+    },
+
+    getProduct (state) {
+        return state.product
+    },
+
+    getReviews(state) {
+        return state.reviews
     }
 
     

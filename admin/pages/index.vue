@@ -10,6 +10,7 @@
          <nuxt-link to="/products" class="a-button-buy-again">Add A New Product</nuxt-link>
          <nuxt-link to="/category" class="a-button-history margin-right-10">Add A New Category</nuxt-link>
          <nuxt-link to="/owner" class="a-button-history margin-right-10">Add A New Owner</nuxt-link>
+         <nuxt-link to="/orders" class="a-button-history margin-right-10">All Orders</nuxt-link>
 
          <!-- <a href="/products" class="a-button-buy-again">Add A New Product</a>
          <a href="/category" class="a-button-history margin-right-10">Add A New Category</a>
@@ -42,15 +43,20 @@
 
              <!-- Product Rating -->
              <div class="a-row">
-               <a href="#">
-                 <i class="fas fa-star"></i>
-                 <i class="fas fa-star"></i>
-                 <i class="fas fa-star"></i>
-                 <i class="fas fa-star"></i>
-                 <i class="fas fa-star"></i>
-               </a>
-               <span class="a-letter-space"></span>
-               <span class="a-color-tertiary a-size-small asin-reviews">(1732)</span>
+               <div class="a-row a-spacing-mini">
+                            <!-- Star Ratings -->
+                            <client-only>
+                              <star-rating
+                              class="d-flex justify-content-center"
+                               :rating="product.averageRating" :show-rating="false"
+                               :glow="1"
+                               :border-width="1"
+                               :rounded-corners="true"
+                               :read-only="true"
+                               :star-size="25"
+                               :star-points="[23,2,14,17,0,19,10,34,7,50,23,43,38,50,36,34,46,19,31,17]"></star-rating>
+                            </client-only>
+                          </div>
              </div>
 
              <!-- Product Price -->
@@ -79,7 +85,11 @@
 </template>
 
 <script>
+const rating = process.client ? require('vue-rate-it') : {}
 export default {
+  components: {
+    StarRating: rating.StarRating
+  },
   // asyncData is fetching data before nuxt page finished loading
   // this is good for SEO since data is loaded first 
   async asyncData ({ $axios }) {
@@ -108,5 +118,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css">
+  .vue-rate-it-rating-item svg {
+    transform: scale(0.5) !important;
+  }
 </style>

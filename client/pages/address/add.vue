@@ -174,9 +174,10 @@
 
 <script>
 export default {
+  middleware: 'auth',
   async asyncData ({ $axios }) {
     try {
-      let response = await $axios.$get('/api/addresses/get/countries')
+      let response = await $axios.$get(`${process.env.DEV_BACKEND}/api/addresses/get/countries`)
 
       if (response.success) {
         return {
@@ -216,7 +217,7 @@ export default {
           securityCode: this.securityCode
         }
 
-        let response = await this.$axios.$post('/api/addresses', data)
+        let response = await this.$axios.$post(`${process.env.DEV_BACKEND}/api/addresses`, data)
         if (response.success) {
           this.$router.push('/address')
         }

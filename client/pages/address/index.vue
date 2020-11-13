@@ -98,9 +98,10 @@
 
 <script>
 export default {
+  middleware: 'auth',
   async asyncData ({ $axios }) {
     try {
-      let response = await $axios.$get('/api/addresses')
+      let response = await $axios.$get(`${process.env.DEV_BACKEND}/api/addresses`)
       if (response.success) {
         return {
           addresses: response.addresses
@@ -113,14 +114,15 @@ export default {
 
   data () {
     return {
-      message: ''
+      message: '',
+      addresses: {}
     }
   },
 
   methods: {
     async onDeleteAddress (id, index) {
       try {
-        let response = await this.$axios.$delete(`/api/addresses/${id}`)
+        let response = await this.$axios.$delete(`${process.env.DEV_BACKEND}/api/addresses/${id}`)
         if (response.success) {
           this.message = response.message
           this.addresses.splice(index, 1)
@@ -132,10 +134,11 @@ export default {
 
     async onSetDefault (id) {
       try {
-        let response = await this.$axios.$put('/api/addresses/set/default', { id: id })
+        let response = await this.$axios.$put(`${process.env.DEV_BACKEND}/api/addresses/set/default`, { id: id })
         if (response.success) {
           this.message = response.message
           await this.$auth.fetchUser()
+          await this.$store.dispatch('setLoggedUser')
         }
       } catch (error) {
         this.message = error.message

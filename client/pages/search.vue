@@ -32,7 +32,7 @@
                     <div class="col-sm-9">
                       <!-- Title and Date -->
                       <div class="a-row a-spacing-small">
-                        <nuxt-link :to="`/products/${product._id}`" class="a-link-normal">
+                        <nuxt-link :to="`/products/${product.objectID}`" class="a-link-normal">
                           <h2 class="a-size-medium">
                             {{ product.title }}
                             <span class="a-letter-space"></span>
@@ -82,25 +82,25 @@
                           </div>
 
                           <!-- Auible Trial -->
-                          <div class="a-row a-spacing-none">
+                          <!-- <div class="a-row a-spacing-none">
                             <span class="a-size-small a-color-secondary">Free with Audible Trial</span>
-                          </div>
+                          </div> -->
                           <hr/>
 
                           <!-- Other Formats -->
-                          <span class="a-size-small a-color-secondary">
+                          <!-- <span class="a-size-small a-color-secondary">
                             Other Formats:
                             <span class="a-letter-space"></span>
                             <a href="#" class="a-size-small a-link-normal a-text-normal">Audio CD</a>
-                          </span>
+                          </span> -->
 
                         </div>
 
                         <!-- Ratings -->
-                        <div class="col-sm-5">
-                          <div class="a-row a-spacing-mini">
+                        <!-- <div class="col-sm-5">
+                          <div class="a-row a-spacing-mini"> -->
                             <!-- Star Ratings -->
-                            <client-only>
+                            <!-- <client-only>
                               <star-rating
                                :rating="product.averageRating" :show-rating="false"
                                :glow="1"
@@ -111,7 +111,7 @@
                                :star-points="[23,2,14,17,0,19,10,34,7,50,23,43,38,50,36,34,46,19,31,17]"></star-rating>
                             </client-only>
                           </div>
-                        </div>
+                        </div> -->
 
 
                       </div>
@@ -141,7 +141,7 @@ export default {
 
   async asyncData ({ $axios, query }) {
     try {
-      let products = await $axios.$post('/api/search', { title: query.title })
+      let products = await $axios.$post(`${process.env.DEV_BACKEND}/api/search`, { title: query.title })
       return {
         products
       }

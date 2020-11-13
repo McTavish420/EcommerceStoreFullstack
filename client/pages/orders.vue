@@ -42,20 +42,21 @@
           </div>
 
           <div class="orderContent">
+            <div v-for="order in orders" :key="order._id">
             <div class="orderContentHeader">
               <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 text-left">
                   <div class="a-row">
                     <span class="a-size-mini a-color-secondary">ORDER PLACED</span>
                     <br />
-                    <span class="a-size-base a-text-bold a-color-secondary">May 16, 2016</span>
+                    <!-- <span class="a-size-base a-text-bold a-color-secondary">May 16, 2016</span> -->
                   </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
                   <div class="a-row">
                     <span class="a-size-mini a-color-secondary">TOTAL</span>
                     <br />
-                    <span class="a-size-base a-text-bold a-color-secondary">$904.85</span>
+                    <span class="a-size-base a-text-bold a-color-secondary">${{ Number(order.totalBill).toFixed(2) }}</span>
                   </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-3">
@@ -63,29 +64,28 @@
                     <span class="a-size-mini a-color-secondary">SHIP TO</span>
                     <br />
                     <!-- Owner's name -->
-                    <a href class="a-size-base font-weight-bold a-link-normal">
-                      {{ $auth.$state.user.userName }}
-                      <i class="far fa-chevron-down"></i>
-                    </a>
+                    <p class="a-size-base font-weight-bold a-link-normal">
+                      {{ $store.getters.getUser.userName }}
+                      <!-- <i class="far fa-chevron-down"></i> -->
+                    </p>
                   </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-5 text-right">
                   <div class="a-row">
-                    <span class="a-size-mini a-color-secondary">ORDER # 114-7570830-75444212</span>
+                    <span class="a-size-mini a-color-secondary">ORDER # {{ order._id }}</span>
                     <br />
-                    <a href="#" class="a-size-base font-weight-bold a-link-normal">Order Details</a>
-                    &nbsp;
+                    <!-- <a href="#" class="a-size-base font-weight-bold a-link-normal">Order Details</a> -->
+                    <!-- &nbsp;
                     <div
                       style="display: inline-block; background-color: #ddd; height: 15px; width: 2px; margin-bottom: -3px;"
                     ></div>&nbsp;
-                    <a href="#" class="a-size-base font-weight-bold a-link-normal">Invoice</a>
+                    <a href="#" class="a-size-base font-weight-bold a-link-normal">Invoice</a> -->
                   </div>
                 </div>
               </div>
             </div>
             <!-- Orders body -->
-            <div class="orderContentBodyAlt"
-                 v-for="order in orders" :key="order._id">
+            <div class="orderContentBodyAlt">
               <div class="a-row">
                 <h1
                   class="a-size-medium a-text-bold"
@@ -113,25 +113,27 @@
                       </span>
                     </div>
                     <div class="a-row">
-                      <span class="a-size-mini a-color-secondary">Sold by: Amazon Export Sales LLC</span>
+                      <span class="a-size-mini a-color-secondary">Sold by: Ecommerce Store</span>
                     </div>
                     <div class="a-row">
                       <!-- Product quantity -->
-                      <span class="a-size-mini" style="color: #111; font-weight: 400;">Quantity: {{ product.productID.quantity }}</span>
+                      <span class="a-size-mini" style="color: #111; font-weight: 400;">Quantity: {{ product.quantity }}</span>
                     </div>
                     <div class="a-row">
                       <!-- Product price -->
-                      <span class="a-size-mini a-color-price">${{ product.productID.price }}</span>
+                      <b>Unit Price of the Product:</b>
+                      <span class="a-size-mini a-color-price"> ${{ product.productID.price }}</span>
                     </div>
                     <br />
-                    <div class="a-row">
+                    <!-- <div class="a-row">
                       <span class="a-button-buy-again">Buy it again</span>
                       <span class="a-button-view-item">View your item</span>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <hr>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -145,10 +147,12 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  middleware: 'auth',
   async asyncData ({ $axios }) {
     try {
-      let response = await $axios.$get('/api/orders')
+      let response = await $axios.$get(`${process.env.DEV_BACKEND}/api/orders`)
 
       if (response.success) {
         return {
@@ -158,6 +162,10 @@ export default {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  methods: {
+    ...mapGetters(['getLog', 'getCity', 'getCartLength']),
   }
 }
 </script>

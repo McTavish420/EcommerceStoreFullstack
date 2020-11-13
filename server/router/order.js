@@ -20,6 +20,41 @@ router.get('/', authenticate, async (req, res) => {
     }
 })
 
+router.get('/all', async (req, res) => {
+    try {
+        let products = await Order.find().deepPopulate('owner owner.address products.productID.owner').exec()
+
+        res.status(200).json({
+            success: true,
+            products: products
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
+// DELETE Request
+router.delete('/:id', async (req, res) => {
+    try {
+        let product = await Order.findOne({ _id: req.params.id })
+        let deletedProduct = await Order.findOneAndDelete({ _id: req.params.id })
+        if (deletedProduct) {
+            res.status(200).json({
+                success: true,
+                message: `Successfully Deleted the Product!!!`
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
 
 
 

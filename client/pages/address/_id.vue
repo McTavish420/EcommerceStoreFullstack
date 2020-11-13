@@ -193,10 +193,18 @@
 
 <script>
 export default {
-  async asyncData ({ $axios, params }) {
+  middleware: 'auth',
+  beforeRouteEnter (to, from, next) {
+    if (from.name === null) {
+      next('/')
+    } else {
+      next()
+    }
+  },
+  async asyncData ({ $axios, route }) {
     try {
-      let getCountries = $axios.$get('/api/addresses/get/countries')
-      let getAddress = $axios.$get(`/api/addresses/${params.id}`)
+      let getCountries = $axios.$get(`${process.env.DEV_BACKEND}/api/addresses/get/countries`)
+      let getAddress = $axios.$get(`${process.env.DEV_BACKEND}/api/addresses/${route.params.id}`)
 
       let [countriesResponse, 
              addressResponse] = await Promise.all([
@@ -222,7 +230,8 @@ export default {
       zipCode: '',
       phoneNumber: '',
       deliveryInstructions: '',
-      securityCode: ''
+      securityCode: '',
+      address: {}
     }
   },
   
@@ -241,8 +250,10 @@ export default {
           securityCode: this.securityCode
         }
 
-        let response = await this.$axios.$put(`/api/addresses/${id}`, data)
+        let response = await this.$axios.$put(`${process.env.DEV_BACKEND}/api/addresses/${id}`, data)
         if (response.success) {
+          await this.$auth.fetchUser()
+          await this.$store.dispatch('setLoggedUser')
           this.$router.push('/address')
         }
       } catch (error) {

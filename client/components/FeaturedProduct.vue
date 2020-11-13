@@ -1,14 +1,14 @@
 <template>
   <div class="mainContent">
     <div class="unified_widget pageBanner my-5">
-      <h1>Books</h1>
+      <h1>Comic Books</h1>
 
       <p>
         <b>
-          Browse for more books
-          <a href="#">leaders of notable people</a>, or
-          <a href="#">Fantasy Books</a> like harry potter or Game of Thrones
-          <a href="#">Best Fantasy books of the year so far</a>
+          Browse for more Manga
+          <a href="#">JoJo no Kimyou na Bouken</a>, or
+          <a href="#">Comic Books</a> like DC Comics or Marvel Comics
+          <a href="#">Best Comic books of the year so far</a>
         </b>
       </p>
     </div>
@@ -18,7 +18,7 @@
         <div class="col-sm-5 text-center">
           <div class="bx-root-image cover-product">
             <img
-              src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/9ad8fbc8-aee8-4e92-a04b-6abf7a036a51/dbuk2g0-82c04ba5-46eb-445e-adc5-2827369eddbe.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvOWFkOGZiYzgtYWVlOC00ZTkyLWEwNGItNmFiZjdhMDM2YTUxXC9kYnVrMmcwLTgyYzA0YmE1LTQ2ZWItNDQ1ZS1hZGM1LTI4MjczNjllZGRiZS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.FC1AYC6v7zuoaKw4nHwKS0zcNWIAGT9merwjyt_WmZg"
+              src="https://cdn.animenewsnetwork.com/hotlink/thumbnails/max700x700/cms/news/102888/one-piece-zou-visual.jpeg"
               class="img-fluid"
             />
           </div>
@@ -26,11 +26,13 @@
 
         <div class="col-sm-7 m-auto">
           <div class="bx-root-dtls">
-            <div class="bx-root-heading">The Program</div>
+            <div class="bx-root-heading">One Piece</div>
           </div>
 
           <div class="bx-root-subtext">
-            It is a great Anime, inside the mind of a great Author
+            Gol D. Roger, a man referred to as the "Pirate King," is set to be executed by the World Government.
+             But just before his demise, he confirms the existence of a great treasure, One Piece, located somewhere within the vast ocean known as the Grand Line.
+             Announcing that One Piece can be claimed by anyone worthy enough to reach it, the Pirate King is executed and the Great Age of Pirates begins.
           </div>
           <div class="bx-root-link">
             <span>Order Now</span>

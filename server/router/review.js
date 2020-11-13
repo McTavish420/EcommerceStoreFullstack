@@ -10,14 +10,16 @@ const router = express.Router()
 // POST Request
 router.post('/:product', [authenticate, uploadPhoto.single('photo')], async (req, res) => {
     try {
-        console.log(`decode: \n`, req.decoded);
+        // console.log(`decode: \n`, req.decoded);
         let data = _.pick(req.body, ['headline', 'body', 'rating'])
         const review = new Review(data)
         review.photo = req.file.path
         review.user = req.decoded._id
         review.product = req.params.product
-        await Product.update({ $push: { reviews: review._id} })
+        let revProd = await Product.findOne({ _id: req.params.product })
+        await revProd.update({ $push: { reviews: review._id} })
         const saveReview = await review.save()
+        // console.log('saved Review\n', saveReview);
         if (saveReview) {
             res.status(200).json({
                 success: true,
@@ -39,6 +41,7 @@ router.get('/:product', async (req, res) => {
             product: req.params.product
         }).populate('user').exec()
         // get all the products from the database along with all info about the associated user
+        // console.log('Product Review', productReview);
         res.status(200).json({
             success: true,
             reviews: productReview

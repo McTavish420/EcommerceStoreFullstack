@@ -98,11 +98,12 @@
 </template>
 
 <script>
+
 export default {
     async asyncData ({ $axios }) {
         try {
             let categories = $axios.$get('https://ecommstore2019.herokuapp.com/api/categories')
-        let owners = $axios.$get('https://ecommstore2019.herokuapp.com/api/owners')
+            let owners = $axios.$get('https://ecommstore2019.herokuapp.com/api/owners')
 
         const [catResponse, ownersResponse] = await Promise.all([
             categories,

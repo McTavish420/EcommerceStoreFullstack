@@ -211,7 +211,7 @@
                                  @change="onChooseShipping('normal')"/>
                           <span class="a-radio-label">
                             <span class="a-color-success">
-                              <strong>Averages 7 business days</strong>
+                              <strong>Averages 14 business days</strong>
                             </span>
                             <br />
                             <span
@@ -227,10 +227,10 @@
                                  @change="onChooseShipping('fast')"/>
                           <span class="a-radio-label">
                             <span class="a-color-success">
-                              <strong>Averages 3 business days</strong>
+                              <strong>Averages 4 business days</strong>
                             </span>
                             <br />
-                            <span class="a-color-secondary">$49.98&nbsp;-&nbsp;Shipping</span>
+                            <span class="a-color-secondary">$59.98&nbsp;-&nbsp;Shipping</span>
                           </span>
                         </div>
                       </fieldset>
@@ -247,7 +247,7 @@
               <div class="a-box-inner">
                 <div class="a-row a-spacing-micro">
                   <nuxt-link to="/payment">
-                    <span class="a-button-place-order">Place your order in USD</span>
+                    <span class="a-button-place-order">Finish Payment</span>
                   </nuxt-link>
                 </div>
                 <div class="a-row a-spacing-small a-size-small a-text-center">
@@ -278,7 +278,7 @@
                     <!-- Total Price with Shipping -->
                     <div class="row">
                       <div class="col-sm-6">Total Before Tax:</div>
-                      <div class="col-sm-6 text-right">USD {{ getCartTotalPriceWithTotalPrice }}</div>
+                      <div class="col-sm-6 text-right">USD {{ Number(getCartTotalPriceWithTotalPrice).toFixed(2) }}</div>
                     </div>
                     <div class="row">
                       <div class="col-sm-6">Estimated tax to be collected:</div>
@@ -291,7 +291,7 @@
                       </div>
                       <div class="col-sm-6 text-right">
                         <!-- Total Price with Shipping -->
-                        <div class="a-color-price a-size-medium a-text-bold">USD {{ getCartTotalPriceWithTotalPrice }}</div>
+                        <div class="a-color-price a-size-medium a-text-bold">USD {{ Number(getCartTotalPriceWithTotalPrice).toFixed(2) }}</div>
                       </div>
                     </div>
                   </div>
@@ -301,7 +301,7 @@
             <div class="a-box a-last a-color-alternate-background">
               <div class="a-box-inner">
                 <div class="a-spacing-base">
-                  <div class="a-row">
+                  <!-- <div class="a-row">
                     <span>
                       <i class="fas fa-caret-down"></i>
                       <a href="#">Selected payment currency</a>
@@ -317,7 +317,7 @@
                         </span>
                       </div>
                     </fieldset>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="a-size-mini">
                   <div class="a-row a-spacing-mini mb-1">
@@ -373,14 +373,14 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  middleware: 'auth',
   layout: "none",
 
   async asyncData ({ $axios, store }) {
     try {
-      let response = await $axios.$post('/api/payment/shipment', {
+      let response = await $axios.$post(`${process.env.DEV_BACKEND}/api/payment/shipment`, {
         shipment: 'normal'
       })
-
       store.commit('setShipping', {
         price: response.shipment.price,
         estimatedDelivery: response.shipment.estimated
@@ -402,7 +402,7 @@ export default {
   methods: {
     async onChooseShipping (shipment) {
       try {
-      let response = await this.$axios.$post('/api/payment/shipment', {
+      let response = await this.$axios.$post(`${process.env.DEV_BACKEND}/api/payment/shipment`, {
         shipment: shipment
       })
 

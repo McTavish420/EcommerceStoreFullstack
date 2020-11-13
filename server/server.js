@@ -56,15 +56,6 @@ app.use('/api/orders', orders)
 app.use('/api/search', searching)
 
 
-// Handle Production
-if (process.env.NODE_ENV === 'production') {
-    // static folder
-    app.use(express.static(__dirname + '/public/'));
-
-    // Handle SPA
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-}
-
 // Port Configuration
 const port = process.env.PORT || 3001
 
